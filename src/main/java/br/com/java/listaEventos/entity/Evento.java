@@ -1,7 +1,10 @@
 package br.com.java.listaEventos.entity;
 
+import javax.persistence.Entity;
+
 import lombok.Data;
 
+@Entity
 @Data
 public class Evento {
 
