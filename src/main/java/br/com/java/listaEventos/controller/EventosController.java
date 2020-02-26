@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.java.listaEventos.entity.Eventos;
 import br.com.java.listaEventos.repository.EventosRepository;
@@ -25,5 +26,13 @@ public class EventosController {
 		repository.save(evento);
 
 		return "redirect:/cadastrarEvento";
+	}
+	
+	@RequestMapping(value = "/eventos")
+	public ModelAndView listaEventos() {
+		ModelAndView mv = new ModelAndView("index");
+		Iterable<Eventos> eventos = repository.findAll();
+		mv.addObject("eventos", eventos);
+		return mv;
 	}
 }
