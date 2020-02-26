@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Evento implements Serializable {
+public class Eventos implements Serializable {
 
 	/**
 	 * 

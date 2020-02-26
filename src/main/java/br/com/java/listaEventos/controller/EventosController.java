@@ -5,23 +5,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.java.listaEventos.entity.Evento;
-import br.com.java.listaEventos.repository.EventoRepository;
+import br.com.java.listaEventos.entity.Eventos;
+import br.com.java.listaEventos.repository.EventosRepository;
 
 @Controller
-public class EventoController {
+public class EventosController {
 
 	@Autowired
-	private EventoRepository repository;
+	private EventosRepository repository;
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.GET)
 	public String form() {
 		return "evento/formEvento";
 	}
-	
+
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
-	public String form(Evento evento) {
+	public String form(Eventos evento) {
+
 		repository.save(evento);
+
 		return "redirect:/cadastrarEvento";
 	}
 }
