@@ -40,7 +40,7 @@ public class EventosController {
 	@RequestMapping("/{id}")
 	public ModelAndView detalhesEvento(@PathVariable("id") long id) {
 		Eventos evento = repository.findById(id);
-		ModelAndView mv = new ModelAndView("detalhesEvento");
+		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
 		mv.addObject("evento", evento);
 		return mv;
 	}
