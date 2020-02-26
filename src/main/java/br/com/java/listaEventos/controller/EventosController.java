@@ -2,6 +2,7 @@ package br.com.java.listaEventos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +34,14 @@ public class EventosController {
 		ModelAndView mv = new ModelAndView("index");
 		Iterable<Eventos> eventos = repository.findAll();
 		mv.addObject("eventos", eventos);
+		return mv;
+	}
+	
+	@RequestMapping("/{id}")
+	public ModelAndView detalhesEvento(@PathVariable("id") long id) {
+		Eventos evento = repository.findById(id);
+		ModelAndView mv = new ModelAndView("detalhesEvento");
+		mv.addObject("evento", evento);
 		return mv;
 	}
 }
