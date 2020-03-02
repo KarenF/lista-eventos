@@ -6,5 +6,5 @@ import br.com.java.listaEventos.entity.Eventos;
 
 public interface EventosRepository extends JpaRepository<Eventos, String>{
 
-	Eventos findById(Long id);
+	Eventos findById(long id);
 }

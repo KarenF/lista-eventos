@@ -39,6 +39,7 @@
 				<th>Local</th>
 				<th>Data</th>
 				<th>Horário</th>
+				<th>Deletar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -48,6 +49,9 @@
 				<td><span th:text="${evento.local}"></span></td>
 				<td><span th:text="${evento.data}"></span></td>
 				<td><span th:text="${evento.horario}"></span></td>
+				<td><a class="waves-effect waves-light btn-small"
+					th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.id)).build()}"><i
+						class="material-icons left">delete</i>Deletar</a></td>
 			</tr>
 		</tbody>
 	</table>

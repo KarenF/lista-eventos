@@ -3,6 +3,7 @@ package br.com.java.listaEventos.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ public class Eventos implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2339241340877385457L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -40,7 +41,7 @@ public class Eventos implements Serializable {
 	@NotBlank
 	@Column(nullable = false)
 	private String horario;
-	
-	@OneToMany(fetch = FetchType.LAZY)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventos", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Convidado> convidados;
 }

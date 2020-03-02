@@ -20,7 +20,7 @@ import br.com.java.listaEventos.repository.EventosRepository;
 public class EventosController {
 
 	@Autowired
-	private EventosRepository Eventosrepository;
+	private EventosRepository eventosRepository;
 
 	@Autowired
 	private ConvidadoRepository convidadoRepository;
@@ -32,13 +32,13 @@ public class EventosController {
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
 	public String form(@Valid Eventos evento, BindingResult result, RedirectAttributes attributes) {
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
 			return "redirect:/cadastrarEvento";
 		}
-		
-		Eventosrepository.save(evento);
+
+		eventosRepository.save(evento);
 		attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso");
 		return "redirect:/cadastrarEvento";
 	}
@@ -46,14 +46,14 @@ public class EventosController {
 	@RequestMapping(value = "/eventos")
 	public ModelAndView listaEventos() {
 		ModelAndView mv = new ModelAndView("index");
-		Iterable<Eventos> eventos = Eventosrepository.findAll();
+		Iterable<Eventos> eventos = eventosRepository.findAll();
 		mv.addObject("eventos", eventos);
 		return mv;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("id") Long id) {
-		Eventos evento = Eventosrepository.findById(id);
+		Eventos evento = eventosRepository.findById(id);
 		ModelAndView mv = new ModelAndView("evento/detalhesEvento");
 		mv.addObject("evento", evento);
 
@@ -63,19 +63,37 @@ public class EventosController {
 		return mv;
 	}
 
+	@RequestMapping("/deletarEvento")
+	public String deletarEvento(long id){
+		Eventos evento = eventosRepository.findById(id);
+		eventosRepository.delete(evento);
+		return "redirect:/eventos";
+	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String detalhesEventoPost(@PathVariable("id") Long id, @Valid Convidado convidado, BindingResult result,
 			RedirectAttributes attributes) {
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
 			return "redirect:/{id}";
 		}
-		
-		Eventos evento = Eventosrepository.findById(id);
+
+		Eventos evento = eventosRepository.findById(id);
 		convidado.setEventos(evento);
 		convidadoRepository.save(convidado);
 		attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso");
 		return "redirect:/{id}";
+	}
+	
+	@RequestMapping("/deletarConvidado")
+	public String deletarConvidado(long rg){
+		Convidado convidado = convidadoRepository.findByRg(rg);
+		convidadoRepository.delete(convidado);
+		
+		Eventos evento = convidado.getEventos();
+		long idEvento = evento.getId();
+		String id = "" + idEvento;
+		return "redirect:/" + id;
 	}
 }
