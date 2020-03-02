@@ -14,15 +14,25 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<link rel="stylesheet" href="style/styleCss.css" />
 </head>
 <body>
-	<h1>Evento</h1>
-	<h3>
-		<a href="/eventos" class="waves-effect waves-light btn"><i
-			class="material-icons left">add_circle_outline</i>Lista de Eventos</a>
-	</h3>
 
-	<div th:each="evento : ${evento}" class="container">
+	<header>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Evento</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="/eventos" class="waves-effect waves-light btn"><i
+							class="material-icons left">format_list_bulleted</i>Lista de
+							Eventos</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div th:each="evento : ${evento}" class="container detalhesEvento">
+		<h5>Detalhes do Evento</h5>
 		<div class="row">
 			<p>
 				Nome: <span th:text="${evento.nome}"></span>
@@ -37,9 +47,10 @@
 				Horário: <span th:text="${evento.horario}"></span>
 			</p>
 		</div>
+	</div>
 
+	<div class="container formConvidado">
 		<th:block th:include="mensagemValidacao"></th:block>
-
 		<form method="post">
 			Nome: <input type="text" value="" name="nomeConvidado" /> RG: <input
 				type="text" value="" name="rg" />
@@ -47,21 +58,20 @@
 		</form>
 	</div>
 
-	<h5>Lista de Convidados:</h5>
-	<div th:each="convidados : ${convidados}" class="container">
-		<div class="row">
-			<div class="input-field col s3">
-				<p>
-					Nome: <span th:text="${convidados.nomeConvidado}"></span>
-				</p>
-			</div>
-			<div class="input-field col s3">
-				<p>
-					RG: <span th:text="${convidados.rg}"></span>
-				</p>
-			</div>
-		</div>
-	</div>
+	<table class="container tabelaConvidado">
+		<thead>
+			<tr>
+				<th>Nome do convidado</th>
+				<th>RG</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="convidados : ${convidados}">
+				<td><span th:text="${convidados.nomeConvidado}"></span></td>
+				<td><span th:text="${convidados.rg}"></span></td>
+			</tr>
+		</tbody>
+	</table>
 
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 
