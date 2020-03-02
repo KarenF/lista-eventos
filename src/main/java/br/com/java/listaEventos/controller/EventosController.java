@@ -49,7 +49,7 @@ public class EventosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public String detalhesEvento(@PathVariable("id") Long id, Convidado convidado) {
+	public String detalhesEventoPost(@PathVariable("id") Long id, Convidado convidado) {
 		Eventos evento = Eventosrepository.findById(id);
 		convidado.setEventos(evento);
 		convidadoRepository.save(convidado);
