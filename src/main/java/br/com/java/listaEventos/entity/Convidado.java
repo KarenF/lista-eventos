@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -26,6 +27,7 @@ public class Convidado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long rg;
+	@NotBlank
 	private String nomeConvidado;
 	
 	@JoinColumn(name = "eventos", referencedColumnName = "id")

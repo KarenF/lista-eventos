@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org"
+<html lang="pt" xmlns:th="http://thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <title>Eventos</title>
@@ -37,12 +37,30 @@
 				Horário: <span th:text="${evento.horario}"></span>
 			</p>
 		</div>
-		
+
+		<th:block th:include="mensagemValidacao"></th:block>
+
 		<form method="post">
-			Nome: <input type="text" value="" name="nomeConvidado"/>
-			RG: <input type="text" value="" name="rg"/>
+			Nome: <input type="text" value="" name="nomeConvidado" /> RG: <input
+				type="text" value="" name="rg" />
 			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
 		</form>
+	</div>
+
+	<h5>Lista de Convidados:</h5>
+	<div th:each="convidados : ${convidados}" class="container">
+		<div class="row">
+			<div class="input-field col s3">
+				<p>
+					Nome: <span th:text="${convidados.nomeConvidado}"></span>
+				</p>
+			</div>
+			<div class="input-field col s3">
+				<p>
+					RG: <span th:text="${convidados.rg}"></span>
+				</p>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
