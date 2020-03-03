@@ -52,7 +52,7 @@
 				<td><span th:text="${evento.data}"></span></td>
 				<td><span th:text="${evento.horario}"></span></td>
 				<td><a class="waves-effect waves-light btn-small"
-					th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.id)).build()}"><i
+					th:href="@{'/atualizar/' + ${evento.id}}"><i
 						class="material-icons left">update</i>Atualizar</a></td>
 				<td><a class="waves-effect waves-light btn-small red"
 					th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.id)).build()}"><i

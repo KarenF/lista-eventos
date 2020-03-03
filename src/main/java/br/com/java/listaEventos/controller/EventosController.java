@@ -42,6 +42,15 @@ public class EventosController {
 		attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso");
 		return "redirect:/cadastrarEvento";
 	}
+	
+	@RequestMapping("/atualizar/{id}")
+	public ModelAndView atualizarEventos(@PathVariable("id") Long id) {
+		ModelAndView mv = new ModelAndView("evento/formAtualizarEvento");
+		Eventos eventos = eventosRepository.findById(id);
+		mv.addObject("eventos", eventos);
+
+		return mv;
+	}
 
 	@RequestMapping(value = "/eventos")
 	public ModelAndView listaEventos() {
@@ -86,17 +95,8 @@ public class EventosController {
 		return "redirect:/{id}";
 	}
 
-	public String atualizarEventos(Long id) {
-
-		Eventos eventos = eventosRepository.findById(id);
-		eventos.setNome("nome");
-		eventosRepository.save(eventos);
-		
-		return "redirect:/{id}";
-	}
-	
 	public String atualizarConvidado(Long id) {
-		
+
 		return "redirect:/{id}";
 	}
 
