@@ -14,11 +14,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "eventos")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Eventos implements Serializable {
 
 	/**
