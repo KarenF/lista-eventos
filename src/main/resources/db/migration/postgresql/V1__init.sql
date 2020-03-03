@@ -7,8 +7,8 @@ horario varchar(50),
 primary key (id));
 
 create table convidado(
-rg serial,
+id_convidado serial,
 nome_convidado varchar(50),
-primary key(rg),
+primary key(id_convidado),
 eventos integer,
 foreign key(eventos) references eventos(id));

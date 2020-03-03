@@ -70,9 +70,9 @@
 		<tbody>
 			<tr th:each="convidados : ${convidados}">
 				<td><span th:text="${convidados.nomeConvidado}"></span></td>
-				<td><span th:text="${convidados.rg}"></span></td>
+				<td><span th:text="${convidados.idConvidado}"></span></td>
 				<td><a class="waves-effect waves-light btn-small"
-					th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidados.rg)).build()}"><i
+					th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidados.idConvidado)).build()}"><i
 						class="material-icons left">delete</i>Deletar</a></td>
 			</tr>
 		</tbody>

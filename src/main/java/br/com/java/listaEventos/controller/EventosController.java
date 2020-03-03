@@ -87,8 +87,8 @@ public class EventosController {
 	}
 	
 	@RequestMapping("/deletarConvidado")
-	public String deletarConvidado(long rg){
-		Convidado convidado = convidadoRepository.findByRg(rg);
+	public String deletarConvidado(long idConvidado){
+		Convidado convidado = convidadoRepository.findByIdConvidado(idConvidado);
 		convidadoRepository.delete(convidado);
 		
 		Eventos evento = convidado.getEventos();

@@ -27,7 +27,7 @@ public class Convidado implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long rg;
+	private Long idConvidado;
 	@NotBlank
 	private String nomeConvidado;
 
