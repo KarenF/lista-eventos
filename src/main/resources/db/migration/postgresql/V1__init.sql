@@ -9,6 +9,7 @@ primary key (id));
 create table convidado(
 id_convidado serial,
 nome_convidado varchar(50),
+rg varchar(50),
 primary key(id_convidado),
 eventos integer,
 foreign key(eventos) references eventos(id));

@@ -2,7 +2,6 @@ package br.com.java.listaEventos.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,6 +29,8 @@ public class Convidado implements Serializable {
 	private Long idConvidado;
 	@NotBlank
 	private String nomeConvidado;
+	@NotBlank
+	private String rg;
 
 	@JoinColumn(name = "eventos", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.LAZY)
