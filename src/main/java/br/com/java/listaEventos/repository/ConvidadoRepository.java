@@ -8,5 +8,5 @@ import br.com.java.listaEventos.entity.Eventos;
 public interface ConvidadoRepository extends JpaRepository<Convidado, Long> {
 
 	Iterable<Convidado> findByEventos(Eventos eventos);
-	Convidado findByIdConvidado(long idConvidado);
+	Convidado findByIdConvidado(Long idConvidado);
 }
