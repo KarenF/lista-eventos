@@ -64,7 +64,7 @@ public class EventosController {
 	}
 
 	@RequestMapping("/deletarEvento")
-	public String deletarEvento(Long id){
+	public String deletarEvento(Long id) {
 		Eventos evento = eventosRepository.findById(id);
 		eventosRepository.delete(evento);
 		return "redirect:/eventos";
@@ -85,12 +85,26 @@ public class EventosController {
 		attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso");
 		return "redirect:/{id}";
 	}
+
+	public String atualizarEventos(Long id) {
+
+		Eventos eventos = eventosRepository.findById(id);
+		eventos.setNome("nome");
+		eventosRepository.save(eventos);
+		
+		return "redirect:/{id}";
+	}
 	
+	public String atualizarConvidado(Long id) {
+		
+		return "redirect:/{id}";
+	}
+
 	@RequestMapping("/deletarConvidado")
-	public String deletarConvidado(Long idConvidado){
+	public String deletarConvidado(Long idConvidado) {
 		Convidado convidado = convidadoRepository.findByIdConvidado(idConvidado);
 		convidadoRepository.delete(convidado);
-		
+
 		Eventos evento = convidado.getEventos();
 		Long idEvento = evento.getId();
 		String id = "" + idEvento;
