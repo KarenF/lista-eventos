@@ -36,12 +36,18 @@
 	<th:block th:include="mensagemValidacao"></th:block>
 
 	<div class="container formAtualizarConvidado">
-		<form action="#" th:action="@{/atualizarConvidado/{id}(id=${convidados.idConvidado})}" th:object="${convidados}"
-			method="post">
+		<form action="#"
+			th:action="@{/atualizarConvidado/{idConvidado}(idConvidado=${convidados.idConvidado})}"
+			th:object="${convidados}" method="post">
 			Nome: <input type="text" th:field="*{nomeConvidado}" />
 			<div class="row">
 				<div class="input-field col s6">
 					RG: <input type="text" th:field="*{rg}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
+					ID Evento: <input type="text" th:field="*{eventos.id}" readonly />
 				</div>
 			</div>
 

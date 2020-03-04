@@ -111,13 +111,35 @@ public class EventosController {
 		return "redirect:/{id}";
 	}
 
-	@RequestMapping(value = "/atualizarConvidado/{id}", method = RequestMethod.GET)
-	public ModelAndView atualizarConvidado(@PathVariable(name = "id") Long id) {
-		Convidado convidados = convidadoRepository.findByIdConvidado(id);
+	@RequestMapping(value = "/atualizarConvidado/{idConvidado}", method = RequestMethod.GET)
+	public ModelAndView atualizarConvidado(@PathVariable(name = "idConvidado") Long idConvidado) {
+		Eventos evento = eventosRepository.findById(idConvidado);
 		ModelAndView mv = new ModelAndView("evento/formAtualizarConvidado");
+		mv.addObject("evento", evento);
+		
+		Convidado convidados = convidadoRepository.findByIdConvidado(idConvidado);
 		mv.addObject("convidados", convidados);
 
 		return mv;
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/atualizarConvidado/{idConvidado}", method = RequestMethod.POST)
+	public String atualizarConvidadoPost(@PathVariable("idConvidado") Long idConvidado, @Valid Convidado convidado, BindingResult result,
+			RedirectAttributes attributes) {
+
+		if (result.hasErrors()) {
+			attributes.addFlashAttribute("mensagem", "Verifique os campos");
+			return "redirect:/atualizarConvidado/{idConvidado}";
+		}
+		
+		Eventos evento = convidado.getEventos();
+		convidado.setEventos(evento);
+		convidadoRepository.save(convidado);
+		
+		Long idEvento = evento.getId();
+		String id = "" + idEvento;
+		return "redirect:/" + id;
 	}
 
 	@RequestMapping("/deletarConvidado")

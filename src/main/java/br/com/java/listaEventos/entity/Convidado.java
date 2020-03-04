@@ -2,6 +2,7 @@ package br.com.java.listaEventos.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,13 +34,14 @@ public class Convidado implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_convidado", updatable = false, nullable = false)
 	private Long idConvidado;
 	@NotBlank
 	private String nomeConvidado;
 	@NotBlank
 	private String rg;
 
-	@JoinColumn(name = "eventos", referencedColumnName = "id")
+	@JoinColumn(name = "eventos", referencedColumnName = "id", updatable = false, nullable = false)
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Eventos eventos;
 }
