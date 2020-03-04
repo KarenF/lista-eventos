@@ -39,7 +39,7 @@ public class Convidado implements Serializable {
 	@NotBlank
 	private String nomeConvidado;
 	@NotBlank
-	private String rg;
+	private String cpf;
 
 	@JoinColumn(name = "eventos", referencedColumnName = "id", updatable = false, nullable = false)
 	@ManyToOne(fetch = FetchType.LAZY)

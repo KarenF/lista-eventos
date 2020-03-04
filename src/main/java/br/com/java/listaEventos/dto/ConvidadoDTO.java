@@ -18,7 +18,7 @@ public class ConvidadoDTO {
 	@Length(min = 3, max = 50, message = "O nome do convidado deve conter entre 3 e 50 caracteres")
 	private String nomeConvidado;
 	@NotBlank
-	private String rg;
+	private String cpf;
 	
 	private Eventos eventos;
 }

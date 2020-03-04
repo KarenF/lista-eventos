@@ -54,8 +54,8 @@
 		<th:block th:include="mensagemValidacao"></th:block>
 		<form method="post">
 			Nome: <input type="text" value="" name="nomeConvidado"
-				placeholder="Nome Completo" /> RG: <input type="text" value=""
-				name="rg" placeholder="AA-00.000.000" class="validate" />
+				placeholder="Nome Completo" /> CPF: <input type="text" value=""
+				name="cpf" placeholder="000.000.000-00" class="validate" />
 			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
 		</form>
 	</div>
@@ -64,7 +64,7 @@
 		<thead>
 			<tr>
 				<th>Nome do convidado</th>
-				<th>RG</th>
+				<th>CPF</th>
 				<th>Atualizar</th>
 				<th>Deletar</th>
 			</tr>
@@ -72,7 +72,7 @@
 		<tbody>
 			<tr th:each="convidados : ${convidados}">
 				<td><span th:text="${convidados.nomeConvidado}"></span></td>
-				<td><span th:text="${convidados.rg}"></span></td>
+				<td><span th:text="${convidados.cpf}"></span></td>
 				<td><a class="waves-effect waves-light btn-small"
 					th:href="${(#mvc.url('EC#atualizarConvidado').arg(0, convidados.idConvidado)).build()}"><i
 						class="material-icons left">update</i>Atualizar</a></td>
