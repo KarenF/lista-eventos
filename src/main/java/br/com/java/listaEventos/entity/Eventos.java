@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicUpdate
 public class Eventos implements Serializable {
 
 	/**
@@ -32,6 +35,7 @@ public class Eventos implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 	@NotBlank
 	@Column(nullable = false)
@@ -46,6 +50,6 @@ public class Eventos implements Serializable {
 	@Column(nullable = false)
 	private String horario;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventos", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "eventos", cascade = CascadeType.ALL)
 	private List<Convidado> convidados;
 }

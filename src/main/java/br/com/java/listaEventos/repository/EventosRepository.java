@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.java.listaEventos.entity.Eventos;
 
-public interface EventosRepository extends JpaRepository<Eventos, String>{
+public interface EventosRepository extends JpaRepository<Eventos, String> {
 
 	Eventos findById(Long id);
 }

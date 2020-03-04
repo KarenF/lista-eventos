@@ -1,5 +1,6 @@
 package br.com.java.listaEventos.controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,9 @@ public class EventosController {
 		attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso");
 		return "redirect:/cadastrarEvento";
 	}
-	
-	@RequestMapping("/atualizar/{id}")
-	public ModelAndView atualizarEventos(@PathVariable("id") Long id) {
+
+	@RequestMapping(value = "/atualizar/{id}", method = RequestMethod.GET)
+	public ModelAndView atualizarEventos(@PathVariable(name = "id") Long id) {
 		ModelAndView mv = new ModelAndView("evento/formAtualizarEvento");
 		Eventos eventos = eventosRepository.findById(id);
 		mv.addObject("eventos", eventos);
@@ -52,12 +53,34 @@ public class EventosController {
 		return mv;
 	}
 
+	@Transactional
+	@RequestMapping(value = "/atualizar/{id}", method = RequestMethod.POST)
+	public String atualizarEventosPost(@PathVariable("id") Long id, @Valid Eventos eventos, BindingResult result, RedirectAttributes attributes) {
+
+		if (result.hasErrors()) {
+			attributes.addFlashAttribute("mensagem", "Verifique os campos");
+			return "redirect:/atualizar/{id}";
+		}
+
+		eventosRepository.save(eventos);
+		attributes.addFlashAttribute("mensagem", "Evento atualizado com sucesso");
+		return "redirect:/eventos";
+	}
+
 	@RequestMapping(value = "/eventos")
 	public ModelAndView listaEventos() {
 		ModelAndView mv = new ModelAndView("index");
 		Iterable<Eventos> eventos = eventosRepository.findAll();
 		mv.addObject("eventos", eventos);
+
 		return mv;
+	}
+
+	@RequestMapping("/deletarEvento")
+	public String deletarEvento(Long id) {
+		Eventos evento = eventosRepository.findById(id);
+		eventosRepository.delete(evento);
+		return "redirect:/eventos";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -70,13 +93,6 @@ public class EventosController {
 		mv.addObject("convidados", convidados);
 
 		return mv;
-	}
-
-	@RequestMapping("/deletarEvento")
-	public String deletarEvento(Long id) {
-		Eventos evento = eventosRepository.findById(id);
-		eventosRepository.delete(evento);
-		return "redirect:/eventos";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
