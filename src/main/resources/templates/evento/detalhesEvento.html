@@ -74,7 +74,7 @@
 				<td><span th:text="${convidados.nomeConvidado}"></span></td>
 				<td><span th:text="${convidados.rg}"></span></td>
 				<td><a class="waves-effect waves-light btn-small"
-					th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidados.idConvidado)).build()}"><i
+					th:href="${(#mvc.url('EC#atualizarConvidado').arg(0, convidados.idConvidado)).build()}"><i
 						class="material-icons left">update</i>Atualizar</a></td>
 				<td><a class="waves-effect waves-light btn-small red"
 					th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidados.idConvidado)).build()}"><i

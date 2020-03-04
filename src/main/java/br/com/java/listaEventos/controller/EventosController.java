@@ -111,9 +111,13 @@ public class EventosController {
 		return "redirect:/{id}";
 	}
 
-	public String atualizarConvidado(Long id) {
+	@RequestMapping(value = "/atualizarConvidado/{id}", method = RequestMethod.GET)
+	public ModelAndView atualizarConvidado(@PathVariable(name = "id") Long id) {
+		Convidado convidados = convidadoRepository.findByIdConvidado(id);
+		ModelAndView mv = new ModelAndView("evento/formAtualizarConvidado");
+		mv.addObject("convidados", convidados);
 
-		return "redirect:/{id}";
+		return mv;
 	}
 
 	@RequestMapping("/deletarConvidado")
