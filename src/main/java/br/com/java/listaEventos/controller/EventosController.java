@@ -16,9 +16,12 @@ import br.com.java.listaEventos.entity.Convidado;
 import br.com.java.listaEventos.entity.Eventos;
 import br.com.java.listaEventos.repository.ConvidadoRepository;
 import br.com.java.listaEventos.repository.EventosRepository;
+import br.com.java.listaEventos.validacao.Validacao;
 
 @Controller
 public class EventosController {
+	
+	String cpf;
 
 	@Autowired
 	private EventosRepository eventosRepository;
@@ -55,7 +58,8 @@ public class EventosController {
 
 	@Transactional
 	@RequestMapping(value = "/atualizar/{id}", method = RequestMethod.POST)
-	public String atualizarEventosPost(@PathVariable("id") Long id, @Valid Eventos eventos, BindingResult result, RedirectAttributes attributes) {
+	public String atualizarEventosPost(@PathVariable("id") Long id, @Valid Eventos eventos, BindingResult result,
+			RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
@@ -106,9 +110,18 @@ public class EventosController {
 
 		Eventos evento = eventosRepository.findById(id);
 		convidado.setEventos(evento);
-		convidadoRepository.save(convidado);
-		attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso");
-		return "redirect:/{id}";
+
+		cpf = convidado.getCpf();
+		Validacao validacao = new Validacao();
+		boolean valido = validacao.validaCPF(cpf);
+		if (valido) {
+			convidadoRepository.save(convidado);
+			attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso");
+			return "redirect:/{id}";
+		} else {
+			attributes.addFlashAttribute("mensagem", "CPF inválido");
+			return "redirect:/{id}";
+		}
 	}
 
 	@RequestMapping(value = "/atualizarConvidado/{idConvidado}", method = RequestMethod.GET)
@@ -116,30 +129,39 @@ public class EventosController {
 		Eventos evento = eventosRepository.findById(idConvidado);
 		ModelAndView mv = new ModelAndView("evento/formAtualizarConvidado");
 		mv.addObject("evento", evento);
-		
+
 		Convidado convidados = convidadoRepository.findByIdConvidado(idConvidado);
 		mv.addObject("convidados", convidados);
 
 		return mv;
 	}
-	
+
 	@Transactional
 	@RequestMapping(value = "/atualizarConvidado/{idConvidado}", method = RequestMethod.POST)
-	public String atualizarConvidadoPost(@PathVariable("idConvidado") Long idConvidado, @Valid Convidado convidado, BindingResult result,
-			RedirectAttributes attributes) {
+	public String atualizarConvidadoPost(@PathVariable("idConvidado") Long idConvidado, @Valid Convidado convidado,
+			BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
 			return "redirect:/atualizarConvidado/{idConvidado}";
 		}
-		
+
 		Eventos evento = convidado.getEventos();
 		convidado.setEventos(evento);
-		convidadoRepository.save(convidado);
 		
-		Long idEvento = evento.getId();
-		String id = "" + idEvento;
-		return "redirect:/" + id;
+		cpf = convidado.getCpf();
+		Validacao validacao = new Validacao();
+		boolean valido = validacao.validaCPF(cpf);
+		if (valido) {
+			convidadoRepository.save(convidado);
+			attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso");
+			Long idEvento = evento.getId();
+			String id = "" + idEvento;
+			return "redirect:/" + id;
+		} else {
+			attributes.addFlashAttribute("mensagem", "CPF inválido");
+			return "redirect:/atualizarConvidado/{idConvidado}";
+		}
 	}
 
 	@RequestMapping("/deletarConvidado")
